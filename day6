@@ -1,0 +1,92 @@
+#Maximum Depth of BinaryTree
+#https://leetcode.com/problems/maximum-depth-of-binary-tree/
+class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        l=self.maxDepth(root.left)
+        r=self.maxDepth(root.right)
+        return 1+ max(l,r)
+#SameTree
+#https://leetcode.com/problems/same-tree/
+class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        if not p and not q:
+            return True
+        if not p or not q:
+            return False
+        if(p.val!=q.val):
+            return False
+        return self.isSameTree(p.left,q.left)and self.isSameTree(p.right,q.right)
+
+#SymmetricTree
+#https://leetcode.com/problems/symmetric-tree/
+class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        return self.same(root.left,root.right)
+    def same(self,p,q):
+        if not p and not q:
+            return True
+        if not p or not q:
+            return False
+        if(p.val !=q.val):
+            return False
+        return self.same(p.left,q.right) and self.same(p.right,q.left)
+
+#PathSum
+#https://leetcode.com/problems/path-sum/submissions/1980975127/
+class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        if not root:
+            return False
+        
+        if not root.left and not root.right:
+            return targetSum==root.val
+        return self.hasPathSum(root.left,targetSum-root.val) or self.hasPathSum(root.right,targetSum-root.val) 
+         
+#Insert into a BinaryTree
+#https://leetcode.com/problems/insert-into-a-binary-search-tree/submissions/1980976349/
+class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def insertIntoBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        if not root:
+            return TreeNode(val)
+        root1=root
+        while (True):
+            if root1.val<=val:
+                if root1.right:
+                    root1=root1.right
+                else:
+                    root1.right=TreeNode(val)
+                    break
+            else:
+                if root1.left:
+                    root1=root1.left
+                else:
+                    root1.left=TreeNode(val)
+                    break
+        return root
