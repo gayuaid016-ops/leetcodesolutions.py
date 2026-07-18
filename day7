@@ -1,0 +1,45 @@
+#Fibonacci Number
+#https://leetcode.com/problems/fibonacci-number/submissions/1980959254/
+class Solution:
+    def fib(self, n: int) -> int:
+        if n <=1 :
+            return n
+        return self.fib(n-1)+self.fib(n-2)
+#Power of Two
+#https://leetcode.com/problems/power-of-two/submissions/1980961383/
+class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        return n>0 and n & (n-1)==0
+#Permutations
+#https://leetcode.com/problems/permutations/submissions/1980962392/
+def permute(self, nums: List[int]) -> List[List[int]]:
+        result=[]
+        self.backtrack(nums,result,[])
+        return result
+    def backtrack(self,nums,result,temp):
+        if (len(nums)==len(temp)):
+            result.append(list(temp))
+        for num in nums:
+            if num in temp:
+                continue
+            temp.append(num)
+            self.backtrack(nums,result,temp)
+            temp.pop()
+#Subsets
+#https://leetcode.com/problems/subsets/submissions/
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        result = []
+        def backtrack(start, temp):
+            result.append(temp[:])
+
+            for i in range(start, len(nums)):
+                temp.append(nums[i])
+                backtrack(i + 1, temp)
+                temp.pop()
+
+        backtrack(0, [])
+        return result
+            
+        
+        
