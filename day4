@@ -1,0 +1,93 @@
+#MaxmumNumberofVowels
+#https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/description/
+class Solution(object):
+    def maxVowels(self, s, k):
+        vowel={'a','e','i','o','u'}
+        count=0
+        maxi=0
+        for i in range(k):
+            if s[i] in vowel:
+                count+=1
+        maxi=count
+        for i in range(k,len(s)):
+            if s[i] in vowel:
+                count+=1
+            if s[i-k] in vowel:
+                count-=1
+            maxi=max(count,maxi)
+        return maxi                    
+
+#LongestSubstrng
+#https://leetcode.com/problems/longest-substring-without-repeating-characters/
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        freq=[-1]*256
+        r=0
+        l=0
+        maxi=0
+        while (r<len(s)):
+            if (l<=freq[ord(s[r])]):
+                l=freq[ord(s[r])]+1
+            length=r-l+1
+            maxi=max(length,maxi) 
+            freq[ord(s[r])]=r
+            r+=1
+        return maxi 
+#BinarySearch
+#https://leetcode.com/problems/binary-search/
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l=0
+        h=len(nums)-1
+        while (l<=h):
+            mid=(l+h)//2
+            if (nums[mid]==target):
+                return mid
+            elif (nums[mid]<target):
+                l=mid+1
+            else:
+                h=mid-1
+        return -1
+
+#SearchInsertionSort
+#https://leetcode.com/problems/search-insert-position/
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        l=0
+        h=len(nums)-1
+        while (l<=h):
+            mid=(l+h)//2
+            if (nums[mid]==target):
+                return mid
+            elif (nums[mid]<target):
+                l=mid+1
+            else:
+                h=mid-1
+        return l
+
+#SearchinRotatedSortedArray
+#https://leetcode.com/problems/search-in-rotated-sorted-array/
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l=0
+        h=len(nums)-1
+        while (l<=h):
+            mid=(l+h)//2
+            if (nums[mid])==target:
+                return mid
+            if(nums[l]<=nums[mid]):
+                if(target>=nums[l] and target<nums[mid]):
+                    h=mid-1
+                else:
+                    l=mid+1
+            else:
+                if(target<=nums[h] and target >nums[mid]):
+                    l=mid+1
+                else:
+                    h=mid-1
+        return -1
+
+        
+        
+
+        
