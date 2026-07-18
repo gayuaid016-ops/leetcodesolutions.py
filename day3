@@ -1,0 +1,57 @@
+#SlidingWindowMaximum
+#https://leetcode.com/problems/sliding-window-maximum/description/
+from collections import deque
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        n=len(nums)
+        dq=deque()
+        ans=[]
+        for i in range(n):
+            while (dq and dq[0]<=i-k):
+                dq.popleft()
+            while (dq and nums[i]>nums[dq[-1]]):
+                dq.pop()
+            dq.append(i)
+            if(i>=k-1):
+                ans.append(nums[dq[0]])
+        return ans
+
+  #NextGreaterElement
+  #https://leetcode.com/problems/next-greater-element-i/description/
+  class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        stack=[]
+        d={}
+        d[nums2[-1]]=-1
+        stack.append(nums2[-1])
+        for i in range(len(nums2)-2,-1,-1):
+            if (nums2[i]<stack[-1]):
+                d[nums2[i]]=stack[-1]
+                stack.append(nums2[i])
+                continue
+            while(stack and nums2[i]>stack[-1]):
+                stack.pop()
+            if not stack:
+                d[nums2[i]]=-1
+                stack.append(nums2[i])
+            else:
+                d[nums2[i]]=stack[-1]
+                stack.append(nums2[i])
+        for i in range(len(nums1)):
+            nums1[i]=d[nums1[i]]
+        return nums1
+
+#DailyTemperatures
+#https://leetcode.com/problems/daily-temperatures/description/
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        n=len(temperatures)
+        ans=[0]*n
+        stack=[]
+        for i in range(n-1,-1,-1):
+            while (stack and temperatures[i]>=temperatures[stack[-1]]):
+                stack.pop()
+            if stack:
+                ans[i]=stack[-1]-i
+            stack.append(i)
+        return ans       
