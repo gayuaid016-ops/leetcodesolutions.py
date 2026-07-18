@@ -1,0 +1,58 @@
+#ValidAnagram
+#https://leetcode.com/problems/valid-anagram/description/
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if (len(s)!=len(t)):
+            return False
+        freq=[0]*26
+        for i in range(len(s)):
+            freq[ord(s[i])-ord('a')]+=1
+            freq[ord(t[i])-ord('a')]-=1
+        for c in freq:
+            if c!=0:
+                return False
+        return True
+
+#ValidPalindrom
+#https://leetcode.com/problems/valid-palindrome/description/
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        l=0
+        r=len(s)-1
+        while(l<r):
+            while(l<r and not s[l].isalnum()):
+                l+=1
+            while(l<r and not s[r].isalnum()):
+                r-=1
+            if s[l].lower() != s[r].lower():
+                return False
+            l+=1
+            r-=1
+        return True
+
+#LongrstCommonPrefix
+#https://leetcode.com/problems/longest-common-prefix/description/
+lass Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        strs.sort()
+        f=strs[0]
+        l=strs[-1]
+        result=[]
+        for i in range(len(f)):
+            if(f[i]!=l[i]):
+                break
+            result.append(f[i])
+        return"".join(result)
+
+#GroupAnaggrams
+#https://leetcode.com/problems/group-anagrams/description/
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        mapdict={}
+        for word in strs:
+            sorted_word="".join(sorted(word))
+            if sorted_word not in mapdict:
+                mapdict[sorted_word]=[]
+            mapdict[sorted_word].append(word)
+        return list(mapdict.values())
+        
